@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SocialNetwork.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SocialNetwork
 {
@@ -29,7 +31,8 @@ namespace SocialNetwork
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<SocialNetworkContext>(options => options.UseSqlServer(connection));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
         

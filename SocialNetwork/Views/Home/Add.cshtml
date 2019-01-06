@@ -1,0 +1,27 @@
+﻿@{ 
+    Layout = null;
+}
+
+<head>
+    <title>Добавление пользователя</title>
+</head>
+
+<body>
+    <div>
+        <h3>Добавление</h3>
+        <form method="post">
+            <input type="hidden" value="@ViewBag.UserIs" name="Id" />
+            <table>
+                <tr>
+                    <td>Имя:</td>
+                    <td><input type="text" name="Name" /></td>
+                </tr>
+                <tr>
+                    <td>Пол:</td>
+                    <td><input type="text" name="Sex" /></td>
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /></td></tr>
+            </table>
+        </form>
+    </div>
+</body>

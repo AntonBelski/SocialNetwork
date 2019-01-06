@@ -1,1 +1,4 @@
 /.vs
+/Database/
+/SocialNetwork/obj/
+/SocialNetwork/bin/

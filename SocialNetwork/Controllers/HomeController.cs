@@ -10,34 +10,29 @@ namespace SocialNetwork.Controllers
 {
     public class HomeController : Controller
     {
+        SocialNetworkContext db;
+        public HomeController(SocialNetworkContext context)
+        {
+            db = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(db.Users.ToList());
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public IActionResult Add(int Id)
         {
-            ViewData["Message"] = "Your application description page.";
-
+            ViewBag.UserId = Id;
             return View();
         }
-
-        public IActionResult Contact()
+        [HttpPost]
+        public string Add(UserModel user)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            db.Users.Add(user);
+            db.SaveChanges();
+            return "Пользователь " + user.Name + " добавлен";
         }
     }
 }
