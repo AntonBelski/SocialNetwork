@@ -28,11 +28,31 @@ namespace SocialNetwork.Controllers
             return View();
         }
         [HttpPost]
-        public string Add(UserModel user)
+        public IActionResult Add(UserModel user)
         {
             db.Users.Add(user);
             db.SaveChanges();
-            return "Пользователь " + user.Name + " добавлен";
+            return RedirectPermanent("~/Home/Index");
+        }
+
+        public IActionResult User(int Id)
+        {
+            var user = db.Users.FirstOrDefault(u => u.Id == Id);
+            return View(user);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            var user = db.Users.FirstOrDefault(u => u.Id == Id);
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult Edit(UserModel user)
+        {
+            db.Users.Update(user);
+            db.SaveChanges();
+            return RedirectPermanent($"~/Home/User/{user.Id}");
         }
     }
 }

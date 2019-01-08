@@ -1,0 +1,25 @@
+﻿@model SocialNetwork.Models.UserModel
+@{ 
+    ViewData["Title"] = "Редактирование пользователя";
+}
+
+<form method="post">
+    <input type="hidden" value="@Model.Id" name="Id" />
+    <table>
+        <tr>
+            <td>Имя:</td>
+            <td><input value="@Model.Name" name="Name" /></td>
+        </tr>
+        <tr>
+            <td>Пол:</td>
+            <td>
+                <select name="Sex">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                    <option value="not determined">not determined</option>
+                </select>
+            </td>
+        </tr>
+        <tr><td><input value="Сохранить изменения" type="submit" /></td></tr>
+    </table>
+</form>

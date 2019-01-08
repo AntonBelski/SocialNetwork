@@ -2,20 +2,12 @@
 @{
     ViewData["Title"] = "Список пользователей";
 }
-<h3>Пользователи</h3>
+<h3>Пользователи:</h3>
 <table class="table-condensed">
-    <tr>
-        <td>ID</td>
-        <td>Имя</td>
-        <td>Пол</td>
-        <td></td>
-    </tr>
     @foreach (var user in Model)
     {
         <tr>
-            <td>@user.Id</td>
-            <td>@user.Name</td>
-            <td>@user.Sex</td>
+            <td><a href="~/Home/User/@user.Id">@user.Name</a> </td>
         </tr>
     }
 </table>

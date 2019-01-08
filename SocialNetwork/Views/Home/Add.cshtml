@@ -10,7 +10,7 @@
     <div>
         <h3>Добавление</h3>
         <form method="post">
-            <input type="hidden" value="@ViewBag.UserIs" name="Id" />
+            <input type="hidden" value="@ViewBag.UserId" name="Id" />
             <table>
                 <tr>
                     <td>Имя:</td>
@@ -18,7 +18,13 @@
                 </tr>
                 <tr>
                     <td>Пол:</td>
-                    <td><input type="text" name="Sex" /></td>
+                    <td>
+                        <select name="Sex">
+                            <option value="male">male</option>
+                            <option value="female>">female</option>
+                            <option value="not determined">not determined</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr><td><input type="submit" value="Отправить" /></td></tr>
             </table>
