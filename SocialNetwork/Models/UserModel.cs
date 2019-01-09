@@ -11,6 +11,8 @@ namespace SocialNetwork.Models
 
         public string Name { get; set; }
 
+        public string Password { get; set; }
+
         public string Sex { get; set; }
 
        // public List<UserModel> Friends { get; set; }
