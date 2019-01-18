@@ -1,0 +1,44 @@
+﻿@model SocialNetwork.Models.UserModel
+@{
+    ViewData["Title"] = "Пользователь";
+}
+
+<table>
+    <tr>
+        <td>Имя: @Model.Name</td>
+    </tr>
+    <tr>
+        <td>Пол: @Model.Sex</td>
+    <tr>
+</table>
+@if (Model.Friends != null && Model.Friends.Count() > 0)
+{
+    <text>Друзья:</text>
+    @foreach (var friend in Model.Friends)
+    {
+        <br />
+        <text><a href="~/Home/UserProfile/@friend.Id">    @friend.Name</a></text>
+    }
+    <br />
+}
+else
+{
+    <text>Нет друзей.</text>
+    <br />
+}
+<br />
+@if (ViewBag.is_auth_user)
+{
+    <a type="button" href="~/Home/Edit/@Model.Id">Редактировать профиль</a>
+}
+else
+{
+    @if (ViewBag.is_friend)
+    {
+        <label>В друзьях</label>
+    }
+    else
+    {
+        <a type="button" href="~/Home/AddFriend/@Model.Id">Добавить в друзья</a>
+    }
+}
