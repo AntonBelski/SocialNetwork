@@ -1,0 +1,24 @@
+﻿@model SocialNetwork.Models.DialogueModel
+@{ 
+    ViewData["title"] = $"Диалог пользователя {ViewBag.auth_user_name}";
+}
+
+<div>
+    @foreach (var message in Model.Content)
+    {
+        @if (message.UserId == ViewBag.auth_user_id)
+        {
+            <p align="right">@message.Message</p>
+        }
+        else
+        {
+            <p align="left">@message.Message</p>
+        }
+    }
+</div>
+<form method="post">
+    <input name="user1_id" type="hidden" value="@Model.User1_Id"/>
+    <input name="user2_id" type="hidden" value="@Model.User2_Id"/>
+    <input name="message" type="text"/>
+    <input type="button" value="Отправить"/>
+</form>

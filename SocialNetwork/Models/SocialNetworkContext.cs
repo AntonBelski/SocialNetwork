@@ -9,6 +9,8 @@ namespace SocialNetwork.Models
     public class SocialNetworkContext : DbContext
     {
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<DialogueModel> Dialogues { get; set; }
+        public DbSet<MessageModel> Messages { get; set; }
 
         public SocialNetworkContext(DbContextOptions<SocialNetworkContext> options)
             : base(options)

@@ -16,5 +16,7 @@ namespace SocialNetwork.Models
         public string Sex { get; set; }
     
         public List<UserModel> Friends { get; set; }
+
+        public List<DialogueModel> Dialogues { get; set; }
     }
 }
