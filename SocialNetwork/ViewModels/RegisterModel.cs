@@ -8,6 +8,9 @@ namespace SocialNetwork.ViewModels
 {
     public class RegisterModel
     {
+        [Required(ErrorMessage = "Не указан логин")]
+        public string Login { get; set; }
+
         [Required(ErrorMessage = "Не указано имя")]
         public string Name { get; set; }
 

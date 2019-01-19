@@ -20,12 +20,12 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserDialogue(int Id)
+        public IActionResult UserDialogue(string login)
         {
-            var user1 = db.Users.Include("Dialogues").Include("Friends").First(u => u.Name == HttpContext.User.Identity.Name);
+            var user1 = db.Users.Include("Dialogues").Include("Friends").First(u => u.Login == HttpContext.User.Identity.Name);
             ViewBag.auth_user_id = user1.Id;
             ViewBag.auth_user_name = user1.Name;
-            var user2 = db.Users.Include("Dialogues").Include("Friends").First(u => u.Id == Id);
+            var user2 = db.Users.Include("Dialogues").Include("Friends").First(u => u.Login == login);
             var user_dialogue = db.Dialogues.Include("Content").FirstOrDefault(d => (d.User1_Id == user1.Id && d.User2_Id == user2.Id)
                                                                  || (d.User1_Id == user2.Id && d.User2_Id == user1.Id));
             if (user1.Dialogues == null)
@@ -57,7 +57,7 @@ namespace SocialNetwork.Controllers
         [HttpPost]
         public IActionResult UserDialogue(int user1_id, int user2_id, string message)
         {
-            var auth_user = db.Users.First(u => u.Name == HttpContext.User.Identity.Name);
+            var auth_user = db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
             var user1 = db.Users.Include("Dialogues").Include("Friends").First(u => u.Id == user1_id);
             var user2 = db.Users.Include("Dialogues").Include("Friends").First(u => u.Id == user2_id);
             var user_dialogue = db.Dialogues.Include("Content").FirstOrDefault(d => (d.User1_Id == user1.Id && d.User2_Id == user2.Id)
@@ -71,11 +71,11 @@ namespace SocialNetwork.Controllers
             db.SaveChanges();
             if (auth_user.Id == user1.Id)
             {
-                return Redirect($"~/Dialogue/UserDialogue/{user2.Id}");
+                return Redirect($"~/Dialogue/UserDialogue/{user2.Login}");
             }
             else
             {
-                return Redirect($"~/Dialogue/UserDialogue/{user1.Id}");
+                return Redirect($"~/Dialogue/UserDialogue/{user1.Login}");
             }
         }
     }

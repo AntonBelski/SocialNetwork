@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Models;
@@ -21,22 +22,22 @@ namespace SocialNetwork.Controllers
         
         public IActionResult Index()
         {
-            var user = db.Users.First(u => u.Name == HttpContext.User.Identity.Name);
-            return Redirect($"~/Home/UserProfile/{user.Id}");
+            var user = db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
+            return Redirect($"~/Home/UserProfile/{user.Login}");
         }
 
-        public IActionResult UserProfile(int Id)
+        public IActionResult UserProfile(string login)
         {
-            ViewBag.is_auth_user = IsAuthorizedUser(Id);
-            ViewBag.is_friend = IsFriend(Id);
-            var user = db.Users.Include("Friends").First(u => u.Id == Id);
+            var user = db.Users.Include("Friends").First(u => u.Login == login);
+            ViewBag.is_auth_user = IsAuthorizedUser(user.Id);
+            ViewBag.is_friend = IsFriend(user.Id);
             return View(user);
         }
         
-        public IActionResult AddFriend(int Id)
+        public IActionResult AddFriend(string login)
         {
-            var user = db.Users.Include("Friends").First(u => u.Name == HttpContext.User.Identity.Name);
-            var new_friend = db.Users.Include("Friends").First(u => u.Id == Id);
+            var user = db.Users.Include("Friends").First(u => u.Login == HttpContext.User.Identity.Name);
+            var new_friend = db.Users.Include("Friends").First(u => u.Login == login);
             if (user.Friends == null)
             {
                 user.Friends = new List<UserModel>();
@@ -53,7 +54,7 @@ namespace SocialNetwork.Controllers
                 db.Users.Update(new_friend);
                 db.SaveChanges();
             }
-            return Redirect($"~/Home/UserProfile/{new_friend.Id}");
+            return Redirect($"~/Home/UserProfile/{new_friend.Login}");
         }
 
         public IActionResult Users()
@@ -62,9 +63,9 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string login)
         {
-            var user = db.Users.FirstOrDefault(u => u.Id == Id);
+            var user = db.Users.FirstOrDefault(u => u.Login == login);
             return View(user);
         }
         [HttpPost]
@@ -72,12 +73,12 @@ namespace SocialNetwork.Controllers
         {
             db.Users.Update(user);
             db.SaveChanges();
-            return Redirect($"~/Home/UserProfile/{user.Id}");
+            return Redirect($"~/Home/UserProfile/{user.Login}");
         }
 
         protected bool IsAuthorizedUser(int Id)
         {
-            var user = db.Users.First(u => u.Name == HttpContext.User.Identity.Name);
+            var user = db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
             if (user.Id == Id)
             {
                 return true;
@@ -90,7 +91,7 @@ namespace SocialNetwork.Controllers
 
         protected bool IsFriend(int Id)
         {
-            var user = db.Users.Include("Friends").First(u => u.Name == HttpContext.User.Identity.Name);
+            var user = db.Users.Include("Friends").First(u => u.Login == HttpContext.User.Identity.Name);
             var other_user = db.Users.Include("Friends").First(u => u.Id == Id);
             if (user.Id != Id && !user.Friends.Contains(other_user))
             {

@@ -29,10 +29,10 @@ namespace AuthApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserModel user = await db.Users.FirstOrDefaultAsync(u => u.Name == model.Name && u.Password == model.Password);
+                UserModel user = await db.Users.FirstOrDefaultAsync(u => u.Login == model.Login && u.Password == model.Password);
                 if (user != null)
                 {
-                    await Authenticate(model.Name);
+                    await Authenticate(model.Login);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -52,12 +52,12 @@ namespace AuthApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserModel user = await db.Users.FirstOrDefaultAsync(u => u.Name == model.Name);
+                UserModel user = await db.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
                 if (user == null)
                 {
-                    db.Users.Add(new UserModel { Name = model.Name, Password = model.Password, Sex = model.Sex });
+                    db.Users.Add(new UserModel { Login = model.Login, Name = model.Name, Password = model.Password, Sex = model.Sex });
                     await db.SaveChangesAsync();
-                    await Authenticate(model.Name);
+                    await Authenticate(model.Login);
 
                     return RedirectToAction("Index", "Home");
                 }

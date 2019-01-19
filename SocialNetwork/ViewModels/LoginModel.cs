@@ -8,8 +8,8 @@ namespace SocialNetwork.ViewModels
 {
     public class LoginModel
     {
-        [Required(ErrorMessage = "Не указано имя")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Не указан логин")]
+        public string Login { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]

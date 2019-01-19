@@ -17,7 +17,7 @@
     @foreach (var friend in Model.Friends)
     {
         <br />
-        <text><a href="~/Home/UserProfile/@friend.Id">    @friend.Name</a></text>
+        <text><a href="~/Home/UserProfile/@friend.Login">    @friend.Name</a></text>
     }
     <br />
 }
@@ -29,7 +29,7 @@ else
 <br />
 @if (ViewBag.is_auth_user)
 {
-    <a type="button" href="~/Home/Edit/@Model.Id">Редактировать профиль</a>
+    <a type="button" href="~/Home/Edit/@Model.Login">Редактировать профиль</a>
 }
 else
 {
@@ -39,8 +39,8 @@ else
     }
     else
     {
-        <a type="button" href="~/Home/AddFriend/@Model.Id">Добавить в друзья</a>
+        <a type="button" href="~/Home/AddFriend/@Model.Login">Добавить в друзья</a>
     }
     <br />
-    <a type="button" href="~/Dialogue/UserDialogue/@Model.Id">Перейти к диалогу</a>
+    <a type="button" href="~/Dialogue/UserDialogue/@Model.Login">Перейти к диалогу</a>
 }

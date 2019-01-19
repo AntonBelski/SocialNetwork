@@ -4,7 +4,11 @@
 }
 
 <form method="post">
+    <input type="hidden" value="@Model.Login" name="Login" />
     <input type="hidden" value="@Model.Id" name="Id" />
+    <input type="hidden" value="@Model.Password" name="Password"/>
+    <input type="hidden" value="@Model.Friends" name="Friends"/>
+    <input type="hidden" value="@Model.Dialogues" name="Dailogues"/>
     <table>
         <tr>
             <td>Имя:</td>
