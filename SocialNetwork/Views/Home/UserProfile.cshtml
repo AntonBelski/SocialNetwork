@@ -13,23 +13,23 @@
 </table>
 @if (Model.Friends != null && Model.Friends.Count() > 0)
 {
-    <text>Друзья:</text>
+    <p>Друзья:</p>
     @foreach (var friend in Model.Friends)
     {
         <br />
-        <text><a href="~/Home/UserProfile/@friend.Login">    @friend.Name</a></text>
+        <p><a asp-controller="Home" asp-action="UserProfile" asp-route-login="@friend.Login">@friend.Name</a></p>
     }
     <br />
 }
 else
 {
-    <text>Нет друзей.</text>
+    <p>Нет друзей.</p>
     <br />
 }
 <br />
 @if (ViewBag.is_auth_user)
 {
-    <a type="button" href="~/Home/Edit/@Model.Login">Редактировать профиль</a>
+    <a class="btn btn-default" asp-controller="Home" asp-action="Edit" asp-route-login="@Model.Login">Редактировать профиль</a>
 }
 else
 {
@@ -39,8 +39,8 @@ else
     }
     else
     {
-        <a type="button" href="~/Home/AddFriend/@Model.Login">Добавить в друзья</a>
+        <a class="btn btn-default" asp-controller="Home" asp-action="AddFriend" asp-route-login="@Model.Login">Добавить в друзья</a>
     }
     <br />
-    <a type="button" href="~/Dialogue/UserDialogue/@Model.Login">Перейти к диалогу</a>
+    <a class="btn btn-default" asp-controller="Dialogue" asp-action="UserDialogue" asp-route-login="@Model.Login">Перейти к диалогу</a>
 }

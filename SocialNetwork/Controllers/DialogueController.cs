@@ -71,11 +71,11 @@ namespace SocialNetwork.Controllers
             db.SaveChanges();
             if (auth_user.Id == user1.Id)
             {
-                return Redirect($"~/Dialogue/UserDialogue/{user2.Login}");
+                return RedirectToAction("UserDialogue", new { login = user2.Login });
             }
             else
             {
-                return Redirect($"~/Dialogue/UserDialogue/{user1.Login}");
+                return RedirectToAction("UserDialogue", new { login = user1.Login });
             }
         }
     }

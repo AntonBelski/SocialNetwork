@@ -7,7 +7,7 @@
     @foreach (var user in Model)
     {
         <tr>
-            <td><a href="~/Home/UserProfile/@user.Login">@user.Name</a> </td>
+            <td><a asp-controller="Home" asp-action="UserProfile" asp-route-login="@user.Login">@user.Name</a> </td>
         </tr>
     }
 </table>

@@ -23,7 +23,7 @@ namespace SocialNetwork.Controllers
         public IActionResult Index()
         {
             var user = db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
-            return Redirect($"~/Home/UserProfile/{user.Login}");
+            return RedirectToAction("UserProfile", new { login = user.Login });
         }
 
         public IActionResult UserProfile(string login)
@@ -54,7 +54,7 @@ namespace SocialNetwork.Controllers
                 db.Users.Update(new_friend);
                 db.SaveChanges();
             }
-            return Redirect($"~/Home/UserProfile/{new_friend.Login}");
+            return RedirectToAction("UserProfile", new { login = new_friend.Login });
         }
 
         public IActionResult Users()
@@ -73,7 +73,7 @@ namespace SocialNetwork.Controllers
         {
             db.Users.Update(user);
             db.SaveChanges();
-            return Redirect($"~/Home/UserProfile/{user.Login}");
+            return RedirectToAction("UserProfile", new { login = user.Login });
         }
 
         protected bool IsAuthorizedUser(int Id)
