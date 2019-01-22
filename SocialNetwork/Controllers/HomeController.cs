@@ -36,8 +36,8 @@ namespace SocialNetwork.Controllers
         
         public IActionResult AddFriend(string login)
         {
-            var user = db.Users.Include("Friends").First(u => u.Login == HttpContext.User.Identity.Name);
-            var new_friend = db.Users.Include("Friends").First(u => u.Login == login);
+            var user = db.Users.Include("Friends").Include("Dialogues").First(u => u.Login == HttpContext.User.Identity.Name);
+            var new_friend = db.Users.Include("Friends").Include("Dialogues").First(u => u.Login == login);
             if (user.Friends == null)
             {
                 user.Friends = new List<UserModel>();
@@ -65,7 +65,7 @@ namespace SocialNetwork.Controllers
         [HttpGet]
         public IActionResult Edit(string login)
         {
-            var user = db.Users.FirstOrDefault(u => u.Login == login);
+            var user = db.Users.Include("Friends").Include("Dialogues").FirstOrDefault(u => u.Login == login);
             return View(user);
         }
         [HttpPost]
