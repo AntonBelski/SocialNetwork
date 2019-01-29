@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@inject SocialNetwork.Services.ICurrentTime CurrentTime
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +26,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>© 2015 - MobileStore</p>
+            <p>© 2019 - Social Network. Текущее время: @CurrentTime.GetTime</p>
         </footer>
         <Contacts></Contacts>
     </div>

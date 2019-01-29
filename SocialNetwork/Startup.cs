@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialNetwork.Models;
+using SocialNetwork.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace SocialNetwork
@@ -29,6 +30,8 @@ namespace SocialNetwork
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddTransient<ICurrentTime, CurrentTime>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SocialNetworkContext>(options => options.UseSqlServer(connection));
